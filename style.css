@@ -1,0 +1,206 @@
+:root {
+    --clr-primary: #44c662;
+    --clr-white: #fff;
+    --clr-light-gray: #848484;
+    --clr-dark-gray: #5a5a5a;
+}
+
+*,
+*:where(::after, ::before) {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#header {
+    background-color: #f0f8ff;
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    font-size: 1.125rem;
+    height: 12vh;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    min-height: 100%;
+}
+
+#logo {
+    position: relative;
+    /* z-index: 1; */
+    font-size: 28px;
+    text-transform: uppercase;
+    margin-block: auto;
+    font-weight: 700;
+    float: left;
+    padding-left: 40px;
+
+    & i {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 16px;
+        color: var(--clr-primary);
+        background: rgba(0, 0, 0, 0.06);
+        padding: 10px;
+        border-radius: 50%;
+    }
+    & a {
+        color: var(--clr-primary);
+    }
+    & a:where(:hover, :focus) {
+        color: var(--clr-primary) !important;
+    }
+    & span {
+        font-weight: 300;
+    }
+}
+
+nav:where(:not(#menu-wrap)).nav-item {
+    --property-random: scaleX;
+    --_scale__default: 100%;
+    --_scale__default-hover: 70%;
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        top: 95%;
+        transform: scaleX(0%);
+        transition: transform 0.2s;
+        background-color: var(--clr-primary);
+    }
+    &.active::after {
+        transform: scaleX(var(--_scale__default));
+    }
+    &:hover::after {
+        transform: scaleX(var(--_scale__default-hover));
+    }
+}
+
+.menu {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    min-height: 100%;
+    & .nav-item {
+        list-style: none;
+        position: relative;
+    }
+    & .nav-link {
+        color: rgba(0, 0, 0, 0.5);
+        padding: 0.75em 1em;
+        font-weight: normal;
+        border-left: none;
+        border-top: none;
+        border-bottom: none;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    & .nav-link:where(:hover, :focus) {
+        color: var(--clr-dark-gray);
+    }
+    & .nav-item:where(:hover.active, .active) .nav-link {
+        color: var(--clr-primary);
+    }
+}
+
+.hamburger {
+    display: none;
+    z-index: 10;
+    background-color: transparent;
+    min-width: 3.125rem;
+    min-height: 100%;
+    border: none !important;
+    position: relative;
+
+    & i {
+        &,
+        &::after,
+        &::before {
+            background-color: #000;
+            position: absolute;
+            width: 40px;
+            height: 2.4px;
+            inset: 0;
+            top: 50%;
+            margin: 0 auto;
+            transition: top 0.2s ease-out;
+        }
+        &::after,
+        &::before {
+            --offset: 7px;
+            content: "";
+            top: var(--offset);
+        }
+        &::after {
+            top: calc(var(--offset) * -1);
+        }
+    }
+    &.active i {
+        &::after,
+        &::before {
+            --offset: 10px;
+        }
+    }
+}
+
+nav#menu-wrap {
+    display: none;
+}
+
+.nav-link:focus-visible{
+box-shadow: none;}
+
+@media screen and (width <= 48em) {
+    nav#menu-wrap {
+        position: absolute;
+        inset: 0;
+        width: 100vw;
+        height: 50vh;
+        transform: translateY(-150%);
+        transition: 1s ease;
+        &.show {
+            transform: translateY(0%);
+        }
+        & .menu {
+            padding-top: 1.25rem;
+            flex-direction: column;
+            justify-content: space-evenly;
+            background-color: var(--clr-primary);
+            & .nav-item:where(:hover.active, .active) .nav-link {
+                color: var(--clr-white);
+            }
+            & .nav-item, & .nav-item .nav-link {
+                width: 100%;
+            }
+            & .nav-item::after {
+                --_scale__default: 100vw;
+                --_scale__default-hover: 70%;
+                background-color: var(--clr-white);
+            }
+        }
+    }
+    .container {
+        flex-direction: column;
+    }
+    .hamburger,
+    nav#menu-wrap {
+        display: block;
+    }
+    #logo {
+        margin-left: auto;
+    }
+    nav {
+        display: none;
+    }
+}
+
+main {
+    min-height: 150vh;
+    background-color: #ced4da;
+}
