@@ -163,7 +163,7 @@ box-shadow: none;}
         width: 100vw;
         height: 50vh;
         transform: translateY(-150%);
-        transition: 1s ease;
+        transition: transform 1s ease;
         &.show {
             transform: translateY(0%);
         }
